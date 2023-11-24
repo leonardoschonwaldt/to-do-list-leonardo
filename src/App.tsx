@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 
 function App() {
   const [input, setInput] = useState('');
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState([""]);
   const [editIndex, setEditIndex] = useState(-1);
   const [editInput, setEditInput] = useState('');
 
@@ -27,19 +27,19 @@ function App() {
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
   }
 
-  function handleDelete(index) {
+  function handleDelete(index: number) {
     const updatedTasks = tasks.filter((task, i) => i !== index);
     setTasks(updatedTasks);
 
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
   }
 
-  function handleEdit(index) {
+  function handleEdit(index: number) {
     setEditIndex(index);
     setEditInput(tasks[index]);
   }
 
-  function handleSaveEdit(index, updatedValue) {
+  function handleSaveEdit(index: number, updatedValue: string) {
     const updatedTasks = tasks.map((task, i) =>
       i === index ? updatedValue : task
     );
@@ -49,7 +49,7 @@ function App() {
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
   }
 
-  function handleKeyDown(event) {
+  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
     if (event.key === 'Enter') {
       if (editIndex !== -1) {
         handleSaveEdit(editIndex, editInput);
