@@ -28,7 +28,7 @@ function App() {
   }
 
   function handleDelete(index: number) {
-    const updatedTasks = tasks.filter((task, i) => i !== index);
+    const updatedTasks = tasks.filter((_task, i) => i !== index);
     setTasks(updatedTasks);
 
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
