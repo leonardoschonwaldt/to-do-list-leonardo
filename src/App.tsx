@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react';
-import TaskInput from './components/TaskInput';
-import TaskList from './components/TaskList';
+import TaskInput from './components/TaskInput/TaskInput';
+import TaskList from './components/TaskList/TaskList';
+import './App.css';
+
 
 function App() {
   const [tasks, setTasks] = useState([""]);
@@ -49,7 +51,7 @@ function App() {
     <div className='container'>
       <h1>To-do List</h1>
       <TaskInput onAddTask={handleRegister} />
-
+      <h2>Tasks</h2>
       <TaskList
         tasks={tasks}
         editIndex={editIndex}
@@ -59,7 +61,7 @@ function App() {
         onDelete={handleDelete}
       />
 
-      <h4>"Made" by Leonardo.</h4>
+      <h4>Made by <a href="https://github.com/leonardoschonwaldt">Leonardo.</a></h4>
     </div>
   );
 }

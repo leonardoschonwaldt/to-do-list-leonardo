@@ -1,0 +1,24 @@
+* {
+  box-sizing: border-box;
+  color: #fff;
+  font-family: 'Orbitron', sans-serif;
+  font-size: 14px;
+  margin: 0 auto;
+}
+
+body {
+  align-items: center;
+  background-color: #262732;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  justify-content: center;
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  border: 1px solid #9698BA;
+  box-shadow: none;
+  outline: none;
+}

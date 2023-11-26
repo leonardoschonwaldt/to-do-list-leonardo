@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './TaskInput.css'
 
 interface TaskInputProps {
   onAddTask: (newTask: string) => void;
@@ -15,14 +16,14 @@ const TaskInput: React.FC<TaskInputProps> = ({ onAddTask }) => {
   };
   
   return (
-    <div>
+    <div className='addTaskInput'>
       <input
         placeholder='Add tasks...'
         value={input}
         onChange={(e) => setInput(e.target.value)}
         onKeyDown={handleKeyDown}
       />
-      <button onClick={() => { onAddTask(input); setInput(''); }}>+</button>
+      <button onClick={() => { onAddTask(input); setInput(''); }}>☺</button>
     </div>
   );
 };

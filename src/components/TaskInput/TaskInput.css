@@ -1,0 +1,34 @@
+.addTaskInput {
+    position: relative;
+}
+
+.addTaskInput button {
+    background-color: #61627A;
+    border: 1px solid #9698BA;
+    border-radius: 4px;
+    height: 44px;
+    position: absolute;
+    right: 0;
+    width: 44px;
+    z-index: 2;
+}
+
+.addTaskInput button:hover {
+    background-color: #535468;
+}
+
+.addTaskInput input {
+    background-color: transparent;
+    border: 1px solid #9698BA;
+    border-radius: 4px;
+    height: 44px;
+    padding-left: 10px;
+    position: relative;
+    transition: border-color 0.3s;
+    width: 355px;
+    z-index: 1;
+}
+
+.addTaskInput input:hover {
+    background-color: #535468;
+}
