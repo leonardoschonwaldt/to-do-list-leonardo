@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
+import TaskInput from './components/TaskInput';
+import TaskList from './components/TaskList';
 
 function App() {
-  const [input, setInput] = useState('');
   const [tasks, setTasks] = useState([""]);
   const [editIndex, setEditIndex] = useState(-1);
   const [editInput, setEditInput] = useState('');
@@ -9,91 +10,54 @@ function App() {
   useEffect(() => {
     const savedTasks = localStorage.getItem('@storagekey')
 
-    if(savedTasks){
+    if (savedTasks) {
       setTasks(JSON.parse(savedTasks))
     }
   }, [])
 
-  function handleRegister() {
-    if (!input) {
-      alert('Preencha o campo de adicionar tarefa');
+  const handleRegister = (newTask: string) => {
+    if (!newTask) {
+      alert('Fill in the task add field.');
       return;
     }
 
-    const updatedTasks = [input, ...tasks];
+    const updatedTasks = [newTask, ...tasks];
     setTasks(updatedTasks);
-    setInput('');
-
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
-  }
+  };
 
-  function handleDelete(index: number) {
+  const handleDelete = (index: number) => {
     const updatedTasks = tasks.filter((_task, i) => i !== index);
     setTasks(updatedTasks);
-
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
-  }
+  };
 
-  function handleEdit(index: number) {
+  const handleEdit = (index: number) => {
     setEditIndex(index);
     setEditInput(tasks[index]);
-  }
+  };
 
-  function handleSaveEdit(index: number, updatedValue: string) {
-    const updatedTasks = tasks.map((task, i) =>
-      i === index ? updatedValue : task
-    );
+  const handleSaveEdit = (index: number, updatedValue: string) => {
+    const updatedTasks = tasks.map((task, i) => (i === index ? updatedValue : task));
     setTasks(updatedTasks);
     setEditIndex(-1);
-
+    setEditInput('');
     localStorage.setItem('@storagekey', JSON.stringify(updatedTasks));
-  }
-
-  function handleKeyDown(event: React.KeyboardEvent<HTMLInputElement>) {
-    if (event.key === 'Enter') {
-      if (editIndex !== -1) {
-        handleSaveEdit(editIndex, editInput);
-      } else {
-        handleRegister();
-      }
-    }
-  }
+  };
 
   return (
     <div className='container'>
       <h1>To-do List</h1>
-      <input
-        placeholder='Add tasks...'
-        value={input}
-        onChange={(e) => setInput(e.target.value)}
-        onKeyDown={handleKeyDown}
-      />
-      <button onClick={handleRegister}>+</button>
+      <TaskInput onAddTask={handleRegister} />
 
-      {tasks.map((item, index) => (
-        <section key={index}>
-          {editIndex === index ? (
-            <>
-              <input
-                value={editInput}
-                onChange={(e) => setEditInput(e.target.value)}
-                onKeyDown={(e) => {
-                  if (e.key === 'Enter') {
-                    handleSaveEdit(index, editInput);
-                  }
-                }}
-              />
-              <button onClick={() => handleSaveEdit(index, editInput)}>Save</button>
-            </>
-          ) : (
-            <>
-              <span>{item}</span>
-              <button onClick={() => handleEdit(index)}>Edit</button>
-              <button onClick={() => handleDelete(index)}>-</button>
-            </>
-          )}
-        </section>
-      ))}
+      <TaskList
+        tasks={tasks}
+        editIndex={editIndex}
+        editInput={editInput}
+        onEdit={handleEdit}
+        onSaveEdit={handleSaveEdit}
+        onDelete={handleDelete}
+      />
 
       <h4>"Made" by Leonardo.</h4>
     </div>
